@@ -33,15 +33,22 @@ same <- function(x){
 
 #' Prepare Input Files for Latent Factor Mixed Modeling (LFMM)
 #'
-#' same(x) is a simple function to check if all of the elements of a vector are equal. NA's are ignored using na.omit().
-#' @param x Vector to be tested.
-#' @keywords same
+#' str2lfmm recodes biallelic SNP loci in STRUCTURE format to a format suitable for LFMM.
+#' An arbitrary vector of reference alleles is automatically chosen, though the reference
+#' can be specified by the user if known. str2lfmm accepts both diploid and haploid SNP data.
+#' Each diploid individual must be coded on two lines. Ambiguity codes must be removed and
+#' nucleotides must be coded as integers (e.g. A, T, C, G as 1, 2, 3, 4). Trait data (either
+#' phenotype or environmental variables) can also be included. Samples may be excluded by
+#' specifying using 'exclude,'
+#' @param str.data SNP data in STRUCTURE format
+#' @param trait.data Phenotype or environment data
+#' @param exclude Vector of sample IDs to exclude
+#' @keywords lfmm, structure, recode
 #' @export
 #' @examples
-#' x <- rep(3, times = 10)
-#' same(x) # returns TRUE
-#' y <- 1:10
-#' same (y) # returns FALSE
+#' str2lfmm(str.data = str.data,
+#' trait.data = trait.data,
+#' exclude = NULL)
 str2lfmm <- function(str.data, trait.data, exclude) {
   ## exclude excluded samples
   if (missing(exclude)) {

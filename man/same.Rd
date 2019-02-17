@@ -10,7 +10,7 @@ same(x)
 \item{x}{Vector to be tested.}
 }
 \description{
-same(x) is a simple function to check if all of the elements of a vector are equal. NA's are ignored using na.omit.
+same(x) is a simple function to check if all of the elements of a vector are equal. NA's are ignored using na.omit().
 }
 \examples{
 x <- rep(3, times = 10)
