@@ -14,6 +14,22 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 
+#' Value Negating
+#'
+#' %nin% is the opposite of the binary operator %in%. It returns a logical vector
+#' indicating if there is a mismatch (TRUE) or a match (FALSE). In other words, it
+#' returns TRUE for the values in the first vector but not in the second.
+#' @param x vector or NULL: the values to be matched.
+#' @param y vector or NULL: the values to be matched against.
+#' @keywords same
+#' @export
+#' @examples
+#' x = 1:6
+#' y = 4:10
+#' x %nin% y # which values of x are not in y?
+#' # TRUE  TRUE  TRUE FALSE FALSE FALSE
+'%nin%' = Negate('%in%')
+
 #' Test if All Vecter Elements are Equal
 #'
 #' same(x) is a simple function to check if all of the elements of a vector are equal. NA's are ignored using na.omit().
