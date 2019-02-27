@@ -124,3 +124,42 @@ str2lfmm <- function(str.data, trait.data, exclude) {
   lfmm.data$environment <- trait.out
   return(lfmm.data)
 }
+
+#' Calculate 2D and Cumulative Distance Between Coordinates
+#'
+#' Appends two columns to a data frame containing Longitude and Latitude coordinates. The first column (Dist) is the
+#' incremental change in distance between coordinates. The second column (DistTotal) is the cumulative distance along a
+#' 2D transect beginning at 0.
+#' @param x data frame containing coordinate data as columns labeled "Longitude" (x) and "Latitude" (y).
+#' @param longlat logical for calculating Great Circle (TRUE) or Euclidean (FALSE) distances. Defaults to TRUE.
+#' Great Circle distance is returned in km.
+#' @keywords great circle, dist
+#' @export
+#' @details Relies on the spDistsN1 function from the package 'sp.'
+#' @examples
+#' df_dist <- dist_calc(df, longlat = TRUE)
+dist_calc <- function(df, longlat = TRUE){
+  ## Test if the package 'sp' is attached
+  if("sp" %nin% (.packages()) & "sp" %in% .packages(all.available = TRUE)){
+    library(sp)
+  }
+  if("sp" %nin% (.packages()) & "sp" %nin% .packages(all.available = TRUE)){
+    warning("Please install package:sp using install.packages(\"sp\")")
+  }
+  Dist <- 0
+  for(i in 2:length(df[,"Longitude"])) {
+    Dist[i] = spDistsN1(as.matrix(df[i,c("Longitude", "Latitude")]),
+                        c(df[,"Longitude"][i-1], df[,"Latitude"][i-1]),
+                        longlat = TRUE) # longlat so distances will be in km,
+    #great circle distance
+    #longlat = TRUE) / 1.609 # longlat so distances will be in km,
+    #then divide to convert to miles
+  }
+
+  DistTotal <- 0
+  for(i in 2:length(df[,"Longitude"])) {
+    DistTotal[i] = Dist[i] + DistTotal[i-1]
+  }
+  new_df <- cbind(df, Dist, DistTotal)
+  return(new_df)
+}
