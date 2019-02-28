@@ -1,10 +1,10 @@
-Package: simascripts
+Package: tinker
 Type: Package
-Title: Make Science Easier with Handy R Functions
+Title: Miscellaneous Functions for Data Cleaning, Formatting, and Visualization
 Version: 0.1.0
 Author: Nassima M. Bouzid
 Maintainer: The package maintainer <bouzidnm@uw.edu>
-Description: More about what it does (maybe more than one line)
+Description: This package contains a collection of functions for data manipulation.
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
 Encoding: UTF-8
