@@ -13,6 +13,45 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
+#' Sampling maps in R
+#'
+#' A very simple R function to make a very simple sampling map: points on a
+#' map.
+#' @param x vector: the Longitude values for sampling localities.
+#' @param y vector: the Latitude values for sampling localities.
+#' @param extent the extent of the plotting region.   Latitude values for sampling localities.
+#' @keywords maps, points
+#' @export
+#' @examples
+#' x = 1:6
+#' y = 4:10
+#' x %nin% y # which values of x are not in y?
+#' # TRUE  TRUE  TRUE FALSE FALSE FALSE
+base_map <- map('world', xlim=c(-125,-111), ylim=c(30,49), col="gray95",
+                fill=T, lwd=2, xaxt='n', yaxt='n', xaxs="i", yaxs="i");
+map.axes(cex.axis=0.8); mtext(c("Longitude", "Latitude"), side = c(1,2), line=3)
+plot(NAmer_states, add= TRUE)
+plot(scoc.poly, add = TRUE, col = adjustcolor("#003262", alpha=0.2));
+rasterImage(jpeg, -115.7,45,-111.5,48.5)
+
+# Map Sampling of Individuals
+points(x=scoc.data$Long, y=scoc.data$Lat, cex=1, pch=19,
+       lwd=0.01, col = "red")
+
+
+#' Exit All Plotting Devices
+#'
+#' This is a more efficient and elegant way to close all plotting windows.
+#' Call this function instead of calling dev.off() a million times.
+#' @keywords plotting, dev.off()
+#' @export
+#' @examples
+#' exit_plots()
+exit_plots <- function(){
+  while (dev.cur() > 1){
+    dev.off()
+  }
+}
 
 #' Value Negating
 #'
